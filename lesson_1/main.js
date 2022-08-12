@@ -37,7 +37,7 @@ var myObj = {
 
 // decimal2
 
-var decimal2 = (myNum = 10.22)
+var decimal2 = myNum.toFixed(2)
 
 /*
  * #3
@@ -48,9 +48,12 @@ var decimal2 = (myNum = 10.22)
  */
 
 // i
-
+var i
 i++
 ++i
+
+i--
+--i
 
 /*
  * #4
@@ -63,15 +66,27 @@ i++
 
 // myTest
 
+var myTest = 20
+
 // +=
+
+myTest += 20
 
 // –=
 
+myTest -= 20
+
 // *=
+
+myTest *= 20
 
 // /=
 
+myTest /= 20
+
 // %=
+
+myTest %= 20
 
 /*
  * #5
@@ -79,13 +94,22 @@ i++
  * Используя свойства и методы объекта Math, присвойте переменным и отобразите в консоли
  */
 
+var myPi = Math.PI
+
 // константа Pi → myPi
 
+Math.Pi * myPi
+
 // округленное значение числа 89.279 → myRound
+var myRound = Math.round(89.279)
 
 // случайное число между 0..10 → myRandom
 
+var myRandom = Math.random() * 10
+
 // 3 в 5 степени → myPow
+
+var myPow = Math.pow(3, 5)
 
 /*
  * #6
@@ -98,6 +122,12 @@ i++
 
 // strObj
 
+var strObj = {
+  str: "Мама мыла раму, рама мыла маму",
+}
+
+strObj.length = strObj.str.length
+
 /*
  * #7
  *
@@ -106,6 +136,10 @@ i++
  */
 
 // isRamaPos
+
+var isRamaPos = strObj.str.indexOf("рама")
+
+console.log("isRamaPos:", isRamaPos)
 
 /*
  * #8
@@ -118,8 +152,18 @@ i++
 
 // strReplace
 
+var strReplace = strObj.str.replace("мыла", "моет")
+
+strReplace = strReplace.replace("рама", "Рама")
+strReplace = strReplace.replace("мыла", "держит")
+console.log("strReplace:", strReplace)
+
 /*
  * #9
  *
  * Преобразуйте любую строку в верхний, затем в нижний регистры, результат отобразите в консоли.
  */
+
+var js = "javascript"
+js.toUpperCase()
+js.toLowerCase()
