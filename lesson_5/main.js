@@ -1,4 +1,4 @@
-let container
+let container = null
 let prevIndicator = null
 
 function createContainer() {
@@ -7,20 +7,24 @@ function createContainer() {
   document.querySelector("body").appendChild(container)
 }
 
-function createSlides(num) {
-  const ul = document.createElement("ul")
-  let li
-  let a
-  for (let i = 0; i < num; i++) {
-    li = document.createElement("li")
-    a = document.createElement("a")
-    ul.setAttribute("class", "slides")
-    li.setAttribute("class", "slides__item")
-    a.setAttribute("href", "#")
-    li.appendChild(a)
-    ul.appendChild(li)
+function createSlides(n) {
+  slidesContainer = document.createElement("ul")
+  slidesContainer.setAttribute("class", "slides")
+
+  for (i = 0; i < n; i++) {
+    let slideItem = document.createElement("li")
+    let slideLink = document.createElement("a")
+
+    slideItem.setAttribute(
+      "class",
+      i === 0 ? "slides__item active" : "slides__item"
+    )
+    slideLink.setAttribute("href", "#")
+    slideItem.appendChild(slideLink)
+    slidesContainer.appendChild(slideItem)
   }
-  container.appendChild(ul)
+
+  container.appendChild(slidesContainer)
 }
 
 function createIndicators(num) {
@@ -38,29 +42,34 @@ function createIndicators(num) {
   container.appendChild(div)
 }
 
-function createControls(num) {
-  const div = document.createElement("div")
+function createControls() {
+  controlsContainer = document.createElement("div")
+  controlsContainer.setAttribute("class", "controls")
 
-  for (let i = 0; i < num; i++) {
-    const div2 = document.createElement("div")
-    const idiv = document.createElement("i")
-    div2.appendChild(idiv)
-    if (i === 0) {
-      div2.setAttribute("class", "controls__item controls_prev")
-      idiv.setAttribute("class", "fas fa-chevron-left")
+  for (i = 0; i < 3; i++) {
+    let controlItem = document.createElement("div")
+    let controlIcon = document.createElement("i")
+    const defItemClass = "controls__item"
+    const defIconClass = "fas"
+
+    switch (i) {
+      case 0:
+        controlItem.setAttribute("class", `${defItemClass} controls__prev`)
+        controlIcon.setAttribute("class", `${defIconClass} fa-chevron-left`)
+        break
+      case 1:
+        controlItem.setAttribute("class", `${defItemClass} controls__next`)
+        controlIcon.setAttribute("class", `${defIconClass} fa-chevron-right`)
+        break
+      case 2:
+        controlItem.setAttribute("class", `${defItemClass} controls__pause`)
+        controlIcon.setAttribute("class", `${defIconClass} fa-play`)
+        break
     }
-    if (i === 1) {
-      div2.setAttribute("class", "controls__item controls_next")
-      idiv.setAttribute("class", "fas fa-chevron-right")
-    }
-    if (i === 2) {
-      div2.setAttribute("class", "controls__item controls_pause")
-      idiv.setAttribute("class", "fas fa-play")
-    }
-    div.appendChild(div2)
+    controlItem.appendChild(controlIcon)
+    controlsContainer.appendChild(controlItem)
   }
-  div.setAttribute("class", "controls")
-  container.appendChild(div)
+  container.appendChild(controlsContainer)
 }
 
 function createStyle() {
@@ -75,11 +84,11 @@ function createStyle() {
     }
     .indicators__item {
       display: block;
-      width: 15px;
-      height: 15px;
-      background-color: silver;
+      width: 20px;
+      height: 20px;
+      background-color: gray;
       margin: 5px;
-      border-radius: 50%;
+      border-radius: 10px;
     }`
 
   styleContainer.innerHTML = styleCode
@@ -104,11 +113,12 @@ function setListener() {
   indicatorsContainer.addEventListener("click", indicatorsHandler)
 }
 
-function createCarousel(slidesCount) {
-  createContainer()
-  createSlides(5)
-  createIndicators(5)
-  createControls(3)
+function createCarousel(slidesCount = 5) {
+  // createContainer();
+  container = document.querySelector("#carousel")
+  createSlides(slidesCount)
+  createIndicators(slidesCount)
+  createControls()
   createStyle()
   setListener()
 }
