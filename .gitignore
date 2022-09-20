@@ -1,2 +1,4 @@
 /node_modules
 /spec
+package-lock.json
+package.json
